@@ -13,10 +13,10 @@ export class SupermercadoEntity {
   @Column()
   paginaWeb: string;
 
-  @Column()
+  @Column('decimal', { precision: 5, scale: 2 })
   longitud: number;
 
-  @Column()
+  @Column('decimal', { precision: 5, scale: 2 })
   latitud: number;
 
   @ManyToMany(() => CiudadEntity, (ciudad) => ciudad.supermercados)
