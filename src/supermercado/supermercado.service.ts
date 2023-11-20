@@ -34,6 +34,12 @@ export class SupermercadoService {
   }
 
   async create(supermercado: SupermercadoEntity): Promise<SupermercadoEntity> {
+    if (supermercado.nombre.length <= 10) {
+      throw new BusinessLogicException(
+        'The nombre of the supermercado is too short',
+        BusinessError.PRECONDITION_FAILED,
+      );
+    }
     return await this.supermercadoRepository.save(supermercado);
   }
 
@@ -41,6 +47,12 @@ export class SupermercadoService {
     id: string,
     supermercado: SupermercadoEntity,
   ): Promise<SupermercadoEntity> {
+    if (supermercado.nombre.length <= 10) {
+      throw new BusinessLogicException(
+        'The nombre of the supermercado is too short',
+        BusinessError.PRECONDITION_FAILED,
+      );
+    }
     const persistedSupermercado: SupermercadoEntity =
       await this.supermercadoRepository.findOne({ where: { id } });
     if (!persistedSupermercado)

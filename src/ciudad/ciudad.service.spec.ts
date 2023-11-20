@@ -29,7 +29,7 @@ describe('CiudadService', () => {
     for (let i = 0; i < 5; i++) {
       const ciudad: CiudadEntity = await repository.save({
         nombre: faker.location.city(),
-        pais: faker.location.country(),
+        pais: 'Argentina',
         numeroHabitantes: faker.number.int(),
         supermercados: [],
       });
@@ -67,7 +67,7 @@ describe('CiudadService', () => {
     const ciudad: CiudadEntity = {
       id: '',
       nombre: faker.location.city(),
-      pais: faker.location.country(),
+      pais: 'Argentina',
       numeroHabitantes: faker.number.int(),
       supermercados: [],
     };
@@ -87,7 +87,7 @@ describe('CiudadService', () => {
   it('update should modify a ciudad', async () => {
     const ciudad: CiudadEntity = ciudadesList[0];
     ciudad.nombre = 'New nombre';
-    ciudad.pais = 'New pais';
+    ciudad.pais = 'Ecuador';
     const updatedCiudad: CiudadEntity = await service.update(ciudad.id, ciudad);
     expect(updatedCiudad).not.toBeNull();
     const storedCiudad: CiudadEntity = await repository.findOne({
@@ -103,7 +103,7 @@ describe('CiudadService', () => {
     ciudad = {
       ...ciudad,
       nombre: 'New nombre',
-      pais: 'New pais',
+      pais: 'Paraguay',
     };
     await expect(() => service.update('0', ciudad)).rejects.toHaveProperty(
       'message',

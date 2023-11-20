@@ -27,7 +27,7 @@ describe('SupermercadoService', () => {
     supermercadosList = [];
     for (let i = 0; i < 5; i++) {
       const supermercado: SupermercadoEntity = await repository.save({
-        nombre: faker.company.name(),
+        nombre: faker.company.name().repeat(10),
         paginaWeb: faker.internet.url(),
         longitud: faker.location.longitude(),
         latitud: faker.location.latitude(),
@@ -69,7 +69,7 @@ describe('SupermercadoService', () => {
   it('create should return a new supermercado', async () => {
     const supermercado: SupermercadoEntity = {
       id: '',
-      nombre: faker.company.name(),
+      nombre: faker.company.name().repeat(10),
       paginaWeb: faker.internet.url(),
       longitud: faker.location.longitude(),
       latitud: faker.location.latitude(),
@@ -92,7 +92,7 @@ describe('SupermercadoService', () => {
 
   it('update should modify a supermercado', async () => {
     const supermercado: SupermercadoEntity = supermercadosList[0];
-    supermercado.nombre = 'New nombre';
+    supermercado.nombre = 'New nombres';
     supermercado.paginaWeb = 'New paginaWeb';
     const updatedSupermercado: SupermercadoEntity = await service.update(
       supermercado.id,
@@ -111,7 +111,7 @@ describe('SupermercadoService', () => {
     let supermercado: SupermercadoEntity = supermercadosList[0];
     supermercado = {
       ...supermercado,
-      nombre: 'New nombre',
+      nombre: 'New nombres',
       paginaWeb: 'New paginaWeb',
     };
     await expect(() =>
@@ -132,7 +132,6 @@ describe('SupermercadoService', () => {
   });
 
   it('delete should throw an exception for an invalid supermercado', async () => {
-    const supermercado: SupermercadoEntity = supermercadosList[0];
     await expect(() => service.delete('0')).rejects.toHaveProperty(
       'message',
       'The supermercado with the given id was not found',

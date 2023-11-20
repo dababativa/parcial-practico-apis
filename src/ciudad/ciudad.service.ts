@@ -33,10 +33,22 @@ export class CiudadService {
   }
 
   async create(ciudad: CiudadEntity): Promise<CiudadEntity> {
+    if (!['Argentina', 'Ecuador', 'Paraguay'].includes(ciudad.pais)) {
+      throw new BusinessLogicException(
+        'The pais given is not in the allowed pais list',
+        BusinessError.PRECONDITION_FAILED,
+      );
+    }
     return await this.ciudadRepository.save(ciudad);
   }
 
   async update(id: string, ciudad: CiudadEntity): Promise<CiudadEntity> {
+    if (!['Argentina', 'Ecuador', 'Paraguay'].includes(ciudad.pais)) {
+      throw new BusinessLogicException(
+        'The pais given is not in the allowed pais list',
+        BusinessError.PRECONDITION_FAILED,
+      );
+    }
     const persistedCiudad: CiudadEntity = await this.ciudadRepository.findOne({
       where: { id },
     });
